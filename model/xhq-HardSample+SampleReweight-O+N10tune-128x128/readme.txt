@@ -1,0 +1,85 @@
+This folder is generated on 2019-01-27 15:40:29, marked by xhq-HardSample+SampleReweight-O+N10tune-128x128,
+Here are some settings:
+train method: metric
+neural network: resnet
+batch_size: 128
+training set: Tableware/DataArgumentation/dataset/o-n10_train/(135 classes, 28187 images)
+test set: Tableware/DataArgumentation/dataset/n_test/(42 classes, 1999 images)
+input size: 128x128
+and i load a model: ./model/xhq_ft/xhq_ft_metric.pth.tar
+
+And, this folder is created for saving trained model, usually,
+the best model should be the one named with "xhq-HardSample+SampleReweight-O+N10tune-128x128" in it.
+
+
+2019-01-27 15:53, Epoch:   1, Acc: 83.79, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 16:03, Epoch:   2, Acc: 84.49, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 16:13, Epoch:   3, Acc: 84.54, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 16:22, Epoch:   4, Acc: 85.24, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 16:34, Epoch:   5, Acc: 85.94, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 16:44, Epoch:   6, Acc: 85.44, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 16:53, Epoch:   7, Acc: 84.59, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 17:03, Epoch:   8, Acc: 83.04, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 17:12, Epoch:   9, Acc: 82.09, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 17:24, Epoch:  10, Acc: 88.59, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 17:34, Epoch:  11, Acc: 88.84, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 17:43, Epoch:  12, Acc: 88.09, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 17:52, Epoch:  13, Acc: 89.74, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 18:02, Epoch:  14, Acc: 89.64, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 18:15, Epoch:  15, Acc: 86.24, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 18:24, Epoch:  16, Acc: 84.49, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 18:33, Epoch:  17, Acc: 85.69, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 18:42, Epoch:  18, Acc: 85.94, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 18:51, Epoch:  19, Acc: 85.54, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 19:03, Epoch:  20, Acc: 89.19, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 19:12, Epoch:  21, Acc: 89.14, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 19:21, Epoch:  22, Acc: 89.79, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 19:30, Epoch:  23, Acc: 88.84, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 19:39, Epoch:  24, Acc: 88.74, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 19:52, Epoch:  25, Acc: 85.44, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 20:00, Epoch:  26, Acc: 86.79, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 20:09, Epoch:  27, Acc: 86.14, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 20:16, Epoch:  28, Acc: 87.19, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 20:24, Epoch:  29, Acc: 85.59, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 20:34, Epoch:  30, Acc: 87.44, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 20:42, Epoch:  31, Acc: 89.29, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 20:50, Epoch:  32, Acc: 88.69, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 20:57, Epoch:  33, Acc: 88.14, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 21:05, Epoch:  34, Acc: 88.04, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 21:16, Epoch:  35, Acc: 88.59, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 21:23, Epoch:  36, Acc: 88.29, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 21:31, Epoch:  37, Acc: 88.99, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 21:39, Epoch:  38, Acc: 88.69, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 21:46, Epoch:  39, Acc: 87.14, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 21:57, Epoch:  40, Acc: 89.29, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 22:05, Epoch:  41, Acc: 88.84, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 22:12, Epoch:  42, Acc: 89.84, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 22:20, Epoch:  43, Acc: 90.80, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 22:28, Epoch:  44, Acc: 90.15, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 22:38, Epoch:  45, Acc: 91.25, (135C-42C) [metric][update:0.05, on seen - New Top Accuracy]
+2019-01-27 22:45, Epoch:  46, Acc: 90.30, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 22:53, Epoch:  47, Acc: 90.90, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 23:01, Epoch:  48, Acc: 90.65, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 23:09, Epoch:  49, Acc: 89.59, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 23:19, Epoch:  50, Acc: 90.35, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 23:27, Epoch:  51, Acc: 90.10, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 23:34, Epoch:  52, Acc: 89.79, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 23:42, Epoch:  53, Acc: 89.39, (135C-42C) [metric][update:0.05, on seen]
+2019-01-27 23:50, Epoch:  54, Acc: 90.50, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 00:00, Epoch:  55, Acc: 88.49, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 00:08, Epoch:  56, Acc: 88.59, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 00:16, Epoch:  57, Acc: 87.29, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 00:24, Epoch:  58, Acc: 88.89, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 00:31, Epoch:  59, Acc: 86.84, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 00:41, Epoch:  60, Acc: 91.05, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 00:49, Epoch:  61, Acc: 91.00, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 00:56, Epoch:  62, Acc: 90.75, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 01:04, Epoch:  63, Acc: 90.55, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 01:12, Epoch:  64, Acc: 90.90, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 01:22, Epoch:  65, Acc: 88.39, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 01:29, Epoch:  66, Acc: 88.74, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 01:37, Epoch:  67, Acc: 89.89, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 01:45, Epoch:  68, Acc: 88.59, (135C-42C) [metric][update:0.05, on seen]
+2019-01-28 01:53, Epoch:  69, Acc: 85.79, (135C-42C) [metric][update:0.05, on seen]
+
+[Hard Sample + Sample Re-weighting] Training finished with: 69 epoch, 0.91% accuracy.

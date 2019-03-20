@@ -1,0 +1,88 @@
+This folder is generated on 2019-02-27 14:10:12, marked by feng-Tradition-n5-224x224-continue/run_2,
+Here are some settings:
+train method: metric
+neural network: resnet
+batch_size: 64
+training set: Tableware/DataArgumentation/dataset/n5_train/(42 classes, 210 images)
+test set: Tableware/DataArgumentation/dataset/n_test/(42 classes, 1999 images)
+input size: 224x224
+and i load a model: /home/ubuntu/Program/Dish_recognition/program/model/xhq-Tritidion-O-224x224/run_1/xhq-Tritidion-O-224x224_metric.tar
+
+And, this folder is created for saving trained model, usually,
+the best model should be the one named with "feng-Tradition-n5-224x224-continue/run_2" in it.
+
+
+2019-02-27 14:11, Epoch:   1, Acc: 87.89(42C-42C) [time:13.33][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:12, Epoch:   2, Acc: 88.39(42C-42C) [time:9.54][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:12, Epoch:   3, Acc: 88.44(42C-42C) [time:9.43][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:13, Epoch:   4, Acc: 89.39(42C-42C) [time:9.50][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:14, Epoch:   5, Acc: 90.20(42C-42C) [time:9.51][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:15, Epoch:   6, Acc: 90.85(42C-42C) [time:9.35][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:16, Epoch:   7, Acc: 90.55(42C-42C) [time:10.50][metric][update:0.05, on seen]
+2019-02-27 14:17, Epoch:   8, Acc: 90.95(42C-42C) [time:10.15][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:18, Epoch:   9, Acc: 91.35(42C-42C) [time:10.74][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:20, Epoch:  10, Acc: 91.45(42C-42C) [time:10.36][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:21, Epoch:  11, Acc: 91.45(42C-42C) [time:10.13][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:22, Epoch:  12, Acc: 91.10(42C-42C) [time:10.16][metric][update:0.05, on seen]
+2019-02-27 14:23, Epoch:  13, Acc: 90.95(42C-42C) [time:10.25][metric][update:0.05, on seen]
+2019-02-27 14:24, Epoch:  14, Acc: 90.75(42C-42C) [time:10.51][metric][update:0.05, on seen]
+2019-02-27 14:25, Epoch:  15, Acc: 91.15(42C-42C) [time:10.24][metric][update:0.05, on seen]
+2019-02-27 14:26, Epoch:  16, Acc: 91.80(42C-42C) [time:10.49][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:27, Epoch:  17, Acc: 91.65(42C-42C) [time:10.13][metric][update:0.05, on seen]
+2019-02-27 14:29, Epoch:  18, Acc: 91.75(42C-42C) [time:9.99][metric][update:0.05, on seen]
+2019-02-27 14:30, Epoch:  19, Acc: 91.70(42C-42C) [time:10.28][metric][update:0.05, on seen]
+2019-02-27 14:31, Epoch:  20, Acc: 91.55(42C-42C) [time:10.22][metric][update:0.05, on seen]
+2019-02-27 14:32, Epoch:  21, Acc: 91.90(42C-42C) [time:10.46][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:33, Epoch:  22, Acc: 91.55(42C-42C) [time:10.48][metric][update:0.05, on seen]
+2019-02-27 14:34, Epoch:  23, Acc: 92.05(42C-42C) [time:10.15][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:35, Epoch:  24, Acc: 92.30(42C-42C) [time:10.41][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:36, Epoch:  25, Acc: 92.35(42C-42C) [time:10.16][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:37, Epoch:  26, Acc: 92.95(42C-42C) [time:9.63][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:39, Epoch:  27, Acc: 92.45(42C-42C) [time:10.19][metric][update:0.05, on seen]
+2019-02-27 14:40, Epoch:  28, Acc: 91.70(42C-42C) [time:10.29][metric][update:0.05, on seen]
+2019-02-27 14:41, Epoch:  29, Acc: 91.65(42C-42C) [time:10.36][metric][update:0.05, on seen]
+2019-02-27 14:42, Epoch:  30, Acc: 92.40(42C-42C) [time:10.09][metric][update:0.05, on seen]
+2019-02-27 14:43, Epoch:  31, Acc: 92.15(42C-42C) [time:10.24][metric][update:0.05, on seen]
+2019-02-27 14:44, Epoch:  32, Acc: 91.90(42C-42C) [time:10.91][metric][update:0.05, on seen]
+2019-02-27 14:45, Epoch:  33, Acc: 91.75(42C-42C) [time:9.93][metric][update:0.05, on seen]
+2019-02-27 14:47, Epoch:  34, Acc: 91.75(42C-42C) [time:11.37][metric][update:0.05, on seen]
+2019-02-27 14:48, Epoch:  35, Acc: 91.95(42C-42C) [time:10.13][metric][update:0.05, on seen]
+2019-02-27 14:49, Epoch:  36, Acc: 92.20(42C-42C) [time:10.31][metric][update:0.05, on seen]
+2019-02-27 14:50, Epoch:  37, Acc: 92.10(42C-42C) [time:10.48][metric][update:0.05, on seen]
+2019-02-27 14:51, Epoch:  38, Acc: 92.25(42C-42C) [time:10.59][metric][update:0.05, on seen]
+2019-02-27 14:52, Epoch:  39, Acc: 92.85(42C-42C) [time:10.22][metric][update:0.05, on seen]
+2019-02-27 14:53, Epoch:  40, Acc: 92.20(42C-42C) [time:10.42][metric][update:0.05, on seen]
+2019-02-27 14:54, Epoch:  41, Acc: 92.85(42C-42C) [time:9.94][metric][update:0.05, on seen]
+2019-02-27 14:55, Epoch:  42, Acc: 92.80(42C-42C) [time:9.67][metric][update:0.05, on seen]
+2019-02-27 14:57, Epoch:  43, Acc: 92.95(42C-42C) [time:10.36][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:58, Epoch:  44, Acc: 92.95(42C-42C) [time:10.30][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 14:59, Epoch:  45, Acc: 92.95(42C-42C) [time:10.44][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 15:00, Epoch:  46, Acc: 93.25(42C-42C) [time:10.59][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 15:01, Epoch:  47, Acc: 93.15(42C-42C) [time:10.49][metric][update:0.05, on seen]
+2019-02-27 15:02, Epoch:  48, Acc: 93.60(42C-42C) [time:10.67][metric][update:0.05, on seen - New Top Accuracy]
+2019-02-27 15:03, Epoch:  49, Acc: 93.40(42C-42C) [time:10.69][metric][update:0.05, on seen]
+2019-02-27 15:04, Epoch:  50, Acc: 93.05(42C-42C) [time:10.13][metric][update:0.05, on seen]
+2019-02-27 15:05, Epoch:  51, Acc: 92.95(42C-42C) [time:10.42][metric][update:0.05, on seen]
+2019-02-27 15:07, Epoch:  52, Acc: 92.95(42C-42C) [time:10.28][metric][update:0.05, on seen]
+2019-02-27 15:08, Epoch:  53, Acc: 93.05(42C-42C) [time:10.31][metric][update:0.05, on seen]
+2019-02-27 15:09, Epoch:  54, Acc: 92.40(42C-42C) [time:10.76][metric][update:0.05, on seen]
+2019-02-27 15:10, Epoch:  55, Acc: 92.10(42C-42C) [time:10.76][metric][update:0.05, on seen]
+2019-02-27 15:11, Epoch:  56, Acc: 91.80(42C-42C) [time:10.42][metric][update:0.05, on seen]
+2019-02-27 15:12, Epoch:  57, Acc: 92.10(42C-42C) [time:10.69][metric][update:0.05, on seen]
+2019-02-27 15:13, Epoch:  58, Acc: 91.65(42C-42C) [time:10.28][metric][update:0.05, on seen]
+2019-02-27 15:14, Epoch:  59, Acc: 92.05(42C-42C) [time:10.31][metric][update:0.05, on seen]
+2019-02-27 15:16, Epoch:  60, Acc: 92.45(42C-42C) [time:10.50][metric][update:0.05, on seen]
+2019-02-27 15:17, Epoch:  61, Acc: 93.15(42C-42C) [time:10.17][metric][update:0.05, on seen]
+2019-02-27 15:18, Epoch:  62, Acc: 92.85(42C-42C) [time:10.21][metric][update:0.05, on seen]
+2019-02-27 15:19, Epoch:  63, Acc: 93.10(42C-42C) [time:10.78][metric][update:0.05, on seen]
+2019-02-27 15:20, Epoch:  64, Acc: 93.20(42C-42C) [time:10.21][metric][update:0.05, on seen]
+2019-02-27 15:21, Epoch:  65, Acc: 92.85(42C-42C) [time:10.50][metric][update:0.05, on seen]
+2019-02-27 15:22, Epoch:  66, Acc: 92.90(42C-42C) [time:10.23][metric][update:0.05, on seen]
+2019-02-27 15:23, Epoch:  67, Acc: 92.70(42C-42C) [time:10.37][metric][update:0.05, on seen]
+2019-02-27 15:24, Epoch:  68, Acc: 92.80(42C-42C) [time:10.30][metric][update:0.05, on seen]
+2019-02-27 15:26, Epoch:  69, Acc: 93.20(42C-42C) [time:10.42][metric][update:0.05, on seen]
+2019-02-27 15:27, Epoch:  70, Acc: 93.50(42C-42C) [time:10.92][metric][update:0.05, on seen]
+2019-02-27 15:28, Epoch:  71, Acc: 93.35(42C-42C) [time:10.24][metric][update:0.05, on seen]
+2019-02-27 15:29, Epoch:  72, Acc: 93.45(42C-42C) [time:9.82][metric][update:0.05, on seen]
+
+[Triditional Triplet]Training finished with: 72 epoch, 0.94 accuracy
