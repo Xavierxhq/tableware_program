@@ -90,7 +90,7 @@ if __name__ == "__main__":
 		                                      input_w=input_size,
 		                                      input_h=input_size)
 		if method == 'metric':
-			save_dir, maxacc, test_pids = trainer.metric_training_v5(balance_testset=False)
+			save_dir, maxacc, test_pids = trainer.metric_training(balance_testset=False)
 		elif method == 'classifier':
 			save_dir, maxacc, test_pids = trainer.classifier_training(balance_testset=False)
 		elif method == 'finetune':

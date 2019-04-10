@@ -74,5 +74,5 @@ def save_checkpoint(state, is_best, save_dir, acc,
     mkdir_if_missing(save_dir)
     torch.save(state, fpath)
     if is_best:
-        print('++++ A new best model found in epoch', state['epoch'], ', accuracy:', '%.4f' % acc, '++++')
-        shutil.copy( fpath, osp.join( save_dir, '%s_%s.tar' % (prefix, method) ) )
+        print('++++ A new best model found in epoch', state['epoch'], ', accuracy:', '%.2f' % (acc*100), '++++')
+        shutil.copy( fpath, osp.join(save_dir, 'model.tar') )

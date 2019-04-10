@@ -1,0 +1,88 @@
+This folder is generated on 2019-03-31 00:20:53, marked by 20190331-xhq-ha+re-au6-O/run_1,
+Here are some settings:
+train method: metric
+neural network: resnet
+batch_size: 128
+training set: Dish_recognition/dataset/rename_o_train_190330(93 classes, 128967 images)
+test set: Tableware/DataArgumentation/dataset/o_test(81 classes, 7213 images)
+input size: 300x300
+and i load a model: None
+
+And, this folder is created for saving trained model, usually,
+the best model should be the one named with "20190331-xhq-ha+re-au6-O/run_1" in it.
+
+
+2019-03-31 00:39, Epoch:   1, Acc: 83.27(93C-81C) [time:917.43][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 00:56, Epoch:   2, Acc: 77.24(93C-81C) [time:807.94][metric][update:0.05, on seen]
+2019-03-31 01:13, Epoch:   3, Acc: 75.89(93C-81C) [time:800.04][metric][update:0.05, on seen]
+2019-03-31 01:29, Epoch:   4, Acc: 77.50(93C-81C) [time:800.89][metric][update:0.05, on seen]
+2019-03-31 01:49, Epoch:   5, Acc: 83.49(93C-81C) [time:982.40][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 02:06, Epoch:   6, Acc: 84.71(93C-81C) [time:790.11][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 02:22, Epoch:   7, Acc: 84.75(93C-81C) [time:788.31][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 02:39, Epoch:   8, Acc: 84.94(93C-81C) [time:785.09][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 02:55, Epoch:   9, Acc: 84.82(93C-81C) [time:784.60][metric][update:0.05, on seen]
+2019-03-31 03:15, Epoch:  10, Acc: 88.78(93C-81C) [time:978.76][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 03:32, Epoch:  11, Acc: 88.62(93C-81C) [time:785.94][metric][update:0.05, on seen]
+2019-03-31 03:48, Epoch:  12, Acc: 88.58(93C-81C) [time:785.48][metric][update:0.05, on seen]
+2019-03-31 04:04, Epoch:  13, Acc: 87.72(93C-81C) [time:781.76][metric][update:0.05, on seen]
+2019-03-31 04:21, Epoch:  14, Acc: 88.60(93C-81C) [time:783.06][metric][update:0.05, on seen]
+2019-03-31 04:41, Epoch:  15, Acc: 91.42(93C-81C) [time:973.05][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 04:57, Epoch:  16, Acc: 91.09(93C-81C) [time:781.72][metric][update:0.05, on seen]
+2019-03-31 05:13, Epoch:  17, Acc: 89.62(93C-81C) [time:781.17][metric][update:0.05, on seen]
+2019-03-31 05:30, Epoch:  18, Acc: 89.14(93C-81C) [time:780.15][metric][update:0.05, on seen]
+2019-03-31 05:46, Epoch:  19, Acc: 89.49(93C-81C) [time:780.92][metric][update:0.05, on seen]
+2019-03-31 06:06, Epoch:  20, Acc: 93.40(93C-81C) [time:981.59][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 06:23, Epoch:  21, Acc: 93.25(93C-81C) [time:783.77][metric][update:0.05, on seen]
+2019-03-31 06:39, Epoch:  22, Acc: 93.22(93C-81C) [time:785.27][metric][update:0.05, on seen]
+2019-03-31 06:56, Epoch:  23, Acc: 92.65(93C-81C) [time:784.39][metric][update:0.05, on seen]
+2019-03-31 07:12, Epoch:  24, Acc: 93.12(93C-81C) [time:785.69][metric][update:0.05, on seen]
+2019-03-31 07:32, Epoch:  25, Acc: 93.51(93C-81C) [time:981.97][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 07:48, Epoch:  26, Acc: 93.79(93C-81C) [time:784.96][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 08:05, Epoch:  27, Acc: 93.46(93C-81C) [time:784.08][metric][update:0.05, on seen]
+2019-03-31 08:21, Epoch:  28, Acc: 92.80(93C-81C) [time:781.32][metric][update:0.05, on seen]
+2019-03-31 08:38, Epoch:  29, Acc: 93.23(93C-81C) [time:783.92][metric][update:0.05, on seen]
+2019-03-31 08:57, Epoch:  30, Acc: 95.13(93C-81C) [time:973.46][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 09:14, Epoch:  31, Acc: 94.79(93C-81C) [time:778.43][metric][update:0.05, on seen]
+2019-03-31 09:30, Epoch:  32, Acc: 95.36(93C-81C) [time:779.10][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 09:47, Epoch:  33, Acc: 95.30(93C-81C) [time:781.97][metric][update:0.05, on seen]
+2019-03-31 10:03, Epoch:  34, Acc: 95.09(93C-81C) [time:780.59][metric][update:0.05, on seen]
+2019-03-31 10:22, Epoch:  35, Acc: 95.30(93C-81C) [time:958.73][metric][update:0.05, on seen]
+2019-03-31 10:40, Epoch:  36, Acc: 95.23(93C-81C) [time:793.67][metric][update:0.05, on seen]
+2019-03-31 10:58, Epoch:  37, Acc: 95.47(93C-81C) [time:857.14][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 11:16, Epoch:  38, Acc: 95.98(93C-81C) [time:860.16][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 11:33, Epoch:  39, Acc: 95.73(93C-81C) [time:798.75][metric][update:0.05, on seen]
+2019-03-31 11:54, Epoch:  40, Acc: 96.24(93C-81C) [time:1045.55][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 12:11, Epoch:  41, Acc: 95.81(93C-81C) [time:798.89][metric][update:0.05, on seen]
+2019-03-31 12:27, Epoch:  42, Acc: 95.66(93C-81C) [time:796.09][metric][update:0.05, on seen]
+2019-03-31 12:44, Epoch:  43, Acc: 95.79(93C-81C) [time:791.61][metric][update:0.05, on seen]
+2019-03-31 13:00, Epoch:  44, Acc: 95.18(93C-81C) [time:784.11][metric][update:0.05, on seen]
+2019-03-31 13:20, Epoch:  45, Acc: 96.49(93C-81C) [time:990.01][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 13:37, Epoch:  46, Acc: 96.31(93C-81C) [time:789.86][metric][update:0.05, on seen]
+2019-03-31 13:53, Epoch:  47, Acc: 96.02(93C-81C) [time:787.36][metric][update:0.05, on seen]
+2019-03-31 14:10, Epoch:  48, Acc: 95.91(93C-81C) [time:786.55][metric][update:0.05, on seen]
+2019-03-31 14:26, Epoch:  49, Acc: 96.23(93C-81C) [time:785.16][metric][update:0.05, on seen]
+2019-03-31 14:48, Epoch:  50, Acc: 96.35(93C-81C) [time:1044.58][metric][update:0.05, on seen]
+2019-03-31 15:10, Epoch:  51, Acc: 96.31(93C-81C) [time:1018.95][metric][update:0.05, on seen]
+2019-03-31 15:29, Epoch:  52, Acc: 96.42(93C-81C) [time:925.39][metric][update:0.05, on seen]
+2019-03-31 15:49, Epoch:  53, Acc: 95.95(93C-81C) [time:919.71][metric][update:0.05, on seen]
+2019-03-31 16:07, Epoch:  54, Acc: 96.40(93C-81C) [time:899.84][metric][update:0.05, on seen]
+2019-03-31 16:27, Epoch:  55, Acc: 96.45(93C-81C) [time:1010.85][metric][update:0.05, on seen]
+2019-03-31 16:44, Epoch:  56, Acc: 96.80(93C-81C) [time:797.99][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 17:01, Epoch:  57, Acc: 96.33(93C-81C) [time:801.43][metric][update:0.05, on seen]
+2019-03-31 17:17, Epoch:  58, Acc: 96.49(93C-81C) [time:796.52][metric][update:0.05, on seen]
+2019-03-31 17:34, Epoch:  59, Acc: 96.62(93C-81C) [time:796.68][metric][update:0.05, on seen]
+2019-03-31 17:54, Epoch:  60, Acc: 97.19(93C-81C) [time:986.41][metric][update:0.05, on seen - New Seen Accuracy]
+2019-03-31 18:11, Epoch:  61, Acc: 96.95(93C-81C) [time:785.90][metric][update:0.05, on seen]
+2019-03-31 18:27, Epoch:  62, Acc: 96.81(93C-81C) [time:785.57][metric][update:0.05, on seen]
+2019-03-31 18:44, Epoch:  63, Acc: 96.73(93C-81C) [time:785.16][metric][update:0.05, on seen]
+2019-03-31 19:00, Epoch:  64, Acc: 96.62(93C-81C) [time:783.60][metric][update:0.05, on seen]
+2019-03-31 19:20, Epoch:  65, Acc: 96.17(93C-81C) [time:959.24][metric][update:0.05, on seen]
+2019-03-31 19:36, Epoch:  66, Acc: 96.56(93C-81C) [time:769.08][metric][update:0.05, on seen]
+2019-03-31 19:52, Epoch:  67, Acc: 96.53(93C-81C) [time:769.38][metric][update:0.05, on seen]
+2019-03-31 20:10, Epoch:  68, Acc: 96.42(93C-81C) [time:835.82][metric][update:0.05, on seen]
+2019-03-31 20:28, Epoch:  69, Acc: 96.15(93C-81C) [time:843.94][metric][update:0.05, on seen]
+2019-03-31 20:49, Epoch:  70, Acc: 96.51(93C-81C) [time:1050.29][metric][update:0.05, on seen]
+2019-03-31 21:06, Epoch:  71, Acc: 96.59(93C-81C) [time:796.23][metric][update:0.05, on seen]
+2019-03-31 21:23, Epoch:  72, Acc: 96.85(93C-81C) [time:794.07][metric][update:0.05, on seen]
+
+[Hard Sample + Sample Re-weighting] Training finished with: 72 epoch, 97.19% accuracy.
