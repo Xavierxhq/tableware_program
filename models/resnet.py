@@ -56,7 +56,7 @@ class BasicBlock(nn.Module):
 class Bottleneck(nn.Module):
     expansion = 4
 
-    def __init__(self, inplanes, planes, stride=1, downsample=None, expan=4):
+    def __init__(self, inplanes, planes, stride=1, downsample=None, expan=4, feature_dimension=None):
         super(Bottleneck, self).__init__()
         self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, bias=False)
         self.bn1 = nn.BatchNorm2d(planes)
@@ -66,27 +66,32 @@ class Bottleneck(nn.Module):
         self.conv3 = nn.Conv2d(planes, planes * 4, kernel_size=1, bias=False)
         self.bn3 = nn.BatchNorm2d(planes * 4)
         self.relu = nn.ReLU(inplace=True)
+        self.feature_dimension = feature_dimension
+        if  feature_dimension is not None:  # added by chawdoe
+            self.conv3_v2 = nn.Conv2d(planes, self.feature_dimension, kernel_size=1, bias=False)
+            self.bn3_v2 = nn.BatchNorm2d(self.feature_dimension)
         self.downsample = downsample
         self.stride = stride
         self.expansion = expan
 
     def forward(self, x):
         residual = x
-
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu(out)
-
         out = self.conv2(out)
         out = self.bn2(out)
         out = self.relu(out)
-
-        out = self.conv3(out)
-        out = self.bn3(out)
+        if self.feature_dimension is not None: # added by chawdoe
+            out = self.conv3_v2(out)
+            out = self.bn3_v2(out)
+        else:
+            out = self.conv3(out)
+            out = self.bn3(out)
 
         if self.downsample is not None:
             residual = self.downsample(x)
-
+        
         out += residual
         out = self.relu(out)
 
@@ -94,7 +99,7 @@ class Bottleneck(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, last_stride=2, block=Bottleneck, layers=[3, 4, 6, 3], num_of_classes=0):
+    def __init__(self, last_stride=2, block=Bottleneck, layers=[3, 4, 6, 3], num_of_classes=0, feature_dimension=1024):
         super().__init__()
         self.inplanes = 64
         self.num_of_classes = num_of_classes
@@ -105,29 +110,38 @@ class ResNet(nn.Module):
         self.layer1 = self._make_layer(block, 64, layers[0])
         self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
         self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
-        self.layer4 = self._make_layer(block, 512, layers[3], stride=last_stride)
-        # self.added_1 = conv3x3(2048, 512)
-        # self.added_2 = conv3x3(512, 2048)
+        self.layer4 = self._make_layer(block, 512, layers[3], stride=last_stride, feature_dimension=feature_dimension)
+        
         if self.num_of_classes > 0:
             # add full_connected layers as classifier
             self.avgpool = nn.AvgPool2d(7)
             self.full_conn1 = nn.Linear(512 * block.expansion, 1024)
             self.full_conn2 = nn.Linear(1024, self.num_of_classes)
 
-    def _make_layer(self, block, planes, blocks, stride=1):
+    def _make_layer(self, block, planes, blocks, stride=1, feature_dimension=None):
         downsample = None
-        if stride != 1 or self.inplanes != planes * block.expansion:
+        if (stride != 1 or self.inplanes != planes * block.expansion) and feature_dimension is  None:
             downsample = nn.Sequential(
                 nn.Conv2d(self.inplanes, planes * block.expansion,
                           kernel_size=1, stride=stride, bias=False),
                 nn.BatchNorm2d(planes * block.expansion),
             )
+        elif (stride != 1 or self.inplanes != planes * block.expansion):
+            downsample = nn.Sequential(
+                nn.Conv2d(self.inplanes, feature_dimension,
+                          kernel_size=1, stride=stride, bias=False),
+                nn.BatchNorm2d(feature_dimension),
+            )
 
         layers = []
-        layers.append(block(self.inplanes, planes, stride, downsample))
+        layers.append(block(self.inplanes, planes, stride, downsample, feature_dimension=feature_dimension))
         self.inplanes = planes * block.expansion
         for i in range(1, blocks):
-            layers.append(block(self.inplanes, planes))
+            if feature_dimension is not None:
+                layers.append(block(feature_dimension, planes, feature_dimension=feature_dimension))
+            else:
+                layers.append(block(self.inplanes, planes, feature_dimension=feature_dimension))
+      
 
         return nn.Sequential(*layers)
 
@@ -140,8 +154,6 @@ class ResNet(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.layer4(x)
-        # x = self.added_1(x)
-        # x = self.added_2(x)
 
         if self.num_of_classes > 0:
             x = self.avgpool(x)
@@ -191,10 +203,18 @@ def resnet152(last_stride=2):
     model = ResNet(last_stride=last_stride, layers=[3, 8, 36, 3])
     return model
 
+def resnet50v2(feature_dimension, last_stride=2):
+    model = ResNet(last_stride=last_stride, feature_dimension=feature_dimension)
+    return model
 
 if __name__ == "__main__":
-    net = ResNet(last_stride=2)
-    net.load_param('../model/resnet50-19c8e357.pth')
+    net = resnet50v2(1024, last_stride=2)
+    # net.load_param('../model/resnet50-19c8e357.pth')
+    import torch
+    x = net(torch.zeros(1, 3, 256, 128))
+    print(x.shape)
+
+
     # param_dict = torch.load(model_path)
     # print (param_dict.keys())
     # odict_keys(['conv1.weight', 'bn1.running_mean', 'bn1.running_var', 'bn1.weight', 'bn1.bias',
@@ -250,8 +270,3 @@ if __name__ == "__main__":
     # 'layer4.2.conv1.weight', 'layer4.2.bn1.running_mean', 'layer4.2.bn1.running_var', 'layer4.2.bn1.weight', 'layer4.2.bn1.bias',
     # 'layer4.2.conv2.weight', 'layer4.2.bn2.running_mean', 'layer4.2.bn2.running_var', 'layer4.2.bn2.weight', 'layer4.2.bn2.bias',
     # 'layer4.2.conv3.weight', 'layer4.2.bn3.running_mean', 'layer4.2.bn3.running_var', 'layer4.2.bn3.weight', 'layer4.2.bn3.bias', 'fc.weight', 'fc.bias'])
-
-    import torch
-
-    x = net(torch.zeros(1, 3, 256, 128))
-    print(x.shape)

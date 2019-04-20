@@ -1,1 +1,0 @@
-This folder is generated on 2018-12-10 22:49:20, created by feng, created for saving trained model, usually, the best model should be the one named with best in it.

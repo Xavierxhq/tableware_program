@@ -3,10 +3,12 @@ import torch
 # from data_analyzer import DataAnalyzer
 from trainer import Trainer
 from utils.email_util import Emailer
+import cv_global as G
 
 
 if __name__ == "__main__":
-    
+
+    G._init()
     """
         Set Hyper-Parameters for training
     """
@@ -33,7 +35,7 @@ if __name__ == "__main__":
     """
         set dataset paths
     """
-    train_root = '/home/ubuntu/Program/Dish_recognition/dataset/rename_n5_train_190320'
+    train_root = '/home/ubuntu/Program/Tableware/DataArgumentation/dataset/n_train/'
     test_root = '/home/ubuntu/Program/Tableware/DataArgumentation/dataset/n_test'
     sample_file_dir = '/home/ubuntu/Program/Tableware/DataArgumentation/dataset/n_base_sample_5'
 
@@ -78,7 +80,7 @@ if __name__ == "__main__":
                                             batch_size=batch_size,
                                             input_w=input_size,
                                             input_h=input_size)
-        maxacc, epoch = trainer.metric_training(balance_testset=False)
+        maxacc, epoch = trainer.train(balance_testset=False)
 
         avg_acc += maxacc
         avg_epoch += epoch -12

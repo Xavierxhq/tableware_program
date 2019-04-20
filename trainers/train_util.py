@@ -10,8 +10,8 @@ def load_model(model_path=None, num_of_classes=0):
         model_dict = model.state_dict()
         pretrained_params = torch.load(model_path)
         new_dict = {k: v for k, v in pretrained_params['state_dict'].items() if k in model_dict.keys()}
-        model_dict.update(new_dict)
-        model.load_state_dict(new_dict)
+        # model_dict.update(new_dict)
+        model.load_state_dict(new_dict, strict=False)
         print('model', model_path.split('/')[-1], 'loaded.')
     model = model.cuda()
     return model, optim_policy

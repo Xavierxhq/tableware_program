@@ -1,8 +1,7 @@
 import os, time
 import torch
+from PIL import Image
 import numpy as np
-from datasets import data_loader
-from utils.transforms import TestTransform
 from torch.autograd import Variable
 from utils.file_util import pickle_write, pickle_read
 
@@ -15,22 +14,21 @@ class FeatureUtil(object):
 	def dist(self, y1, y2):
 		return torch.sqrt(torch.sum(torch.pow(y1.cpu() - y2.cpu(), 2))).item()
 
-	def get_proper_input(self, img_path, ls_form=False):
+	def get_proper_input(self, img_path, transform, ls_form=False):
 		if not os.path.exists(img_path):
 			return None
-		pic_data = data_loader.read_image(img_path)
+		pic_data = self._read_image(img_path)
 		lst = list()
-		test = TestTransform(self.WIDTH, self.HEIGHT)
 		if ls_form:
-			return np.array(test(pic_data))
+			return np.array(transform(pic_data))
 
-		lst.append(np.array(test(pic_data)))
+		lst.append(np.array(transform(pic_data)))
 		lst = np.array(lst)
 		pic_data = Variable(torch.from_numpy(lst))
 		return pic_data
 
-	def get_feature(self, img_path, base_model, use_cuda=True):
-		x = self.get_proper_input(img_path)
+	def get_feature(self, img_path, base_model, transform, use_cuda=True):
+		x = self.get_proper_input(img_path, transform)
 		if use_cuda:
 			x = x.cuda()
 		y = base_model(x)
@@ -64,19 +62,33 @@ class FeatureUtil(object):
 		return avg_feature_dict
 
 	def write_feature_map(self, label, feature, file_name, feature_map_dir, weight=1.0):
-		_zero = torch.Tensor([[.0 for i in range(2048)]]).cuda()
-		_multiplier = torch.Tensor([[weight for i in range(2048)]]).cuda()
-		_zero = torch.addcmul(_zero, 1, feature, _multiplier)
+		# _zero = torch.Tensor([[.0 for i in range(2048)]]).cuda()
+		# _multiplier = torch.Tensor([[weight for i in range(2048)]]).cuda()
+		# _zero = torch.addcmul(_zero, 1, feature, _multiplier)
 
 		if not os.path.exists(feature_map_dir):
 			os.makedirs(feature_map_dir)
 		feature_map_name = os.path.join(feature_map_dir, '%s_features.pkl' % label)
 		if not os.path.exists(feature_map_name):
 			obj = {
-				file_name: _zero
+				file_name: feature
 			}
 		else:
 			obj = pickle_read(feature_map_name)
-			obj[file_name] = _zero
+			obj[file_name] = feature
 		pickle_write(feature_map_name, obj)
-		return _zero
+		return feature
+
+	def _read_image(self, img_path):
+		"""Keep reading image until succeed.
+			    This can avoid IOError incurred by heavy IO process."""
+		got_img = False
+		while not got_img:
+			try:
+				img = Image.open(img_path).convert('RGB')
+				got_img = True
+			except IOError:
+				print("IOError incurred when reading '{}'. Will redo. Don't worry. Just chill.".format(img_path))
+				exit(-1)
+				pass
+		return img

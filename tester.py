@@ -1,10 +1,13 @@
-import os, time, re, shutil, random
+import os, time, shutil, random
 import numpy as np
 import torch
+from torch.utils.data import DataLoader
 from torch.autograd import Variable
 from utils.file_util import pickle_write, pickle_read
 from trainers.train_util import load_model
 from utils.feature_util import FeatureUtil
+from utils.transforms import TestTransform
+from datasets.data_loader import ImageDataset
 
 
 class Tester(object) :
@@ -12,11 +15,16 @@ class Tester(object) :
                 sample_num_each_cls=5,
                 model=None,
                 tablewares_mapping_path=None):
-        self.models, _ = load_model(model_path) if model is None else model
+        if model is None:
+            self.models, _ = load_model(model_path)
+        else:
+            self.models = model
         self.models = [self.models]
         self.sample_file_dir = sample_file_dir
         self.test_dir = test_dir
         self.prefix = prefix
+        self.input_w = input_w
+        self.input_h = input_h
         self.sample_num_each_cls = sample_num_each_cls
         self.mapping = None
         if tablewares_mapping_path is not None :
@@ -77,7 +85,7 @@ class Tester(object) :
                 for file_name in os.listdir(dir_full_path):
                     if ignore_limit or class_count_dict[ground_truth_label] < self.sample_num_each_cls:
                         file_full_path = os.path.join(dir_full_path, file_name)
-                        feature_on_gpu = self.feature_util.get_feature(file_full_path, model)
+                        feature_on_gpu = self.feature_util.get_feature(file_full_path, model, TestTransform(self.input_w, self.input_h))
                         self.feature_util.write_feature_map(label=ground_truth_label,
                                         feature=feature_on_gpu,
                                         file_name=file_name,
@@ -132,66 +140,92 @@ class Tester(object) :
                             os.path.join(save_dir_path, name_dict[label], image_path))
         print('base samples prepared.', self.sample_num_each_cls, 'for 1 class')
 
-    def predict_pictures(self, feature_map, seen, weight_ls,
-                        test_pictures=None, use_tableware=False):
+    def predict_pictures(self, feature_map, seen, test_pictures=None, use_tableware=False):
         pkls_dir = os.path.join('results', 'temp', self.prefix + '_all_test_pkls')
         if os.path.exists(pkls_dir):
             shutil.rmtree(pkls_dir)
 
         all_count, positive_count, pred_to_unseen = 0, 0, 0
         predict_dict, class_count_dict = {}, {}
+
         if test_pictures is None:
             test_pictures = os.listdir(self.test_dir)
+        dataset = ImageDataset([os.path.join(self.test_dir, x) for x in test_pictures],
+                               transform=TestTransform(self.input_w, self.input_h))
+        test_loader = DataLoader(dataset, batch_size=64, num_workers=2, pin_memory=True)
+        for f_ls, l_ls, p_ls in test_loader:
+            f_ls = self.models[0](torch.Tensor(f_ls).cuda())
+            for f, l, p in zip(f_ls, l_ls, p_ls):
+                self.feature_util.write_feature_map(l, f, p, pkls_dir, weight=1.0)
+                pred_l, min_d = self.evaluate_single_file(f, feature_map,
+                                                        use_tableware=use_tableware,
+                                                        cls_idx=f)
+                pred_key = l + '-' + pred_l
+                if pred_key not in predict_dict:
+                    predict_dict[pred_key] = [p]
+                else:
+                    predict_dict[pred_key].append(p)
+                if l not in class_count_dict:
+                    class_count_dict[l] = 1
+                else:
+                    class_count_dict[l] += 1
 
-        for i in test_pictures:
-            file_path = os.path.join(self.test_dir, i)
-            cls_idx = re.split('_', file_path)[-1][:-4] # accroding to the directory name
-            all_count += 1
+                if l == pred_l:  # compute the correct num of the class
+                    positive_count += 1
+                all_count += 1
+                if all_count % 1000 == 0:
+                    print('All:', all_count, ', Positive:', positive_count)
 
-            feature_on_gpu = None
-            for weight_index, model in enumerate(self.models) :
-                _f = self.feature_util.get_feature(file_path, model)
+        # for i in test_pictures:
+        #     file_path = os.path.join(self.test_dir, i)
+        #     cls_idx = re.split('_', file_path)[-1][:-4] # accroding to the directory name
+        #     all_count += 1
 
-                _zero = torch.Tensor([[.0 for _ in range(2048)]]).cuda()
-                _multiplier = torch.Tensor([[weight_ls[weight_index] for _ in range(2048)]]).cuda()
-                _zero = torch.addcmul(_zero, 1, _f, _multiplier)
+        #     feature_on_gpu = None
+        #     for weight_index, model in enumerate(self.models) :
+        #         _f = self.feature_util.get_feature(file_path, model)
 
-                if type(_zero) is not torch.Tensor:
-                    print('Expected torch.Tensor, got', type(feature_on_gpu))
-                    exit(200)
-                if feature_on_gpu is None:
-                    feature_on_gpu = np.zeros(shape=_zero.shape)
-                feature_on_gpu += _zero.cpu().detach().numpy()
-            feature_on_gpu = torch.FloatTensor(feature_on_gpu).cuda()
-            self.feature_util.write_feature_map(cls_idx, feature_on_gpu,
-                                file_path.split('/')[-1],
-                                pkls_dir,
-                                weight=1.0)
+        #         _zero = torch.Tensor([[.0 for _ in range(2048)]]).cuda()
+        #         _multiplier = torch.Tensor([[weight_ls[weight_index] for _ in range(2048)]]).cuda()
+        #         _zero = torch.addcmul(_zero, 1, _f, _multiplier)
 
-            pred_label, min_distance = self.evaluate_single_file(feature_on_gpu, feature_map, use_tableware=use_tableware, cls_idx=cls_idx)
+        #         if type(_zero) is not torch.Tensor:
+        #             print('Expected torch.Tensor, got', type(feature_on_gpu))
+        #             exit(200)
+        #         if feature_on_gpu is None:
+        #             feature_on_gpu = np.zeros(shape=_zero.shape)
+        #         feature_on_gpu += _zero.cpu().detach().numpy()
+        #     feature_on_gpu = torch.FloatTensor(feature_on_gpu).cuda()
+        #     self.feature_util.write_feature_map(cls_idx, feature_on_gpu,
+        #                         file_path.split('/')[-1],
+        #                         pkls_dir,
+        #                         weight=1.0)
 
-            pred_key = cls_idx + '-' + pred_label
-            if pred_key not in predict_dict:
-                predict_dict[pred_key] = [file_path.split('/')[-1]]
-            else:
-                predict_dict[pred_key].append(file_path.split('/')[-1])
-            if cls_idx not in class_count_dict:
-                class_count_dict[cls_idx] = 1
-            else:
-                class_count_dict[cls_idx] += 1
+        #     pred_label, min_distance = self.evaluate_single_file(feature_on_gpu, feature_map, use_tableware=use_tableware, cls_idx=cls_idx)
 
-            if cls_idx == pred_label:  # compute the correct num of the class
-                positive_count += 1
-            if all_count % 1000 == 0:
-                print('For now, all:', all_count, ', positive:', positive_count)
-        print('all:', all_count, ', positive:', positive_count)
+        #     pred_key = cls_idx + '-' + pred_label
+        #     if pred_key not in predict_dict:
+        #         predict_dict[pred_key] = [file_path.split('/')[-1]]
+        #     else:
+        #         predict_dict[pred_key].append(file_path.split('/')[-1])
+        #     if cls_idx not in class_count_dict:
+        #         class_count_dict[cls_idx] = 1
+        #     else:
+        #         class_count_dict[cls_idx] += 1
+
+        #     if cls_idx == pred_label:
+        #         positive_count += 1
+        #     if all_count % 1000 == 0:
+        #         print('For now, all:', all_count, ', positive:', positive_count)
+
+        print('test finished. all:', all_count, ', positive:', positive_count)
 
         pickle_write('./results/temp/%s_predict_label_dict_%s.pkl' % (self.prefix, seen), predict_dict) # store the prediction of each picture
         pickle_write('./results/temp/%s_class_count_dict_%s.pkl' % (self.prefix, seen), class_count_dict) # store the count of each class
         return positive_count / (all_count + 1e-12)
 
     def evaluate_with_models(self, seen='none', force_refresh_base=False,
-                             balance_testset=False, weight_ls=None, use_tableware=False) :
+                             weight_ls=None, use_tableware=False) :
         if use_tableware and self.mapping is None :
             print("Tableware mapping file does not exist.")
             return
@@ -204,7 +238,7 @@ class Tester(object) :
         if weight_ls is None or len(self.models) == 1:
             weight_ls = [1.0 for _ in self.models]
         feature_map = self.get_feature_map_average(weight_ls=weight_ls)
-        _accuracy = self.predict_pictures(feature_map, seen=seen, weight_ls=weight_ls, use_tableware=use_tableware)
+        _accuracy = self.predict_pictures(feature_map, seen=seen, use_tableware=use_tableware)
         return _accuracy
 
     def test_with_classifier(self, model, testloader):
@@ -228,7 +262,7 @@ class Tester(object) :
         model.eval()
         if type(feature_map) == str:
             feature_map = pickle_read(feature_map)
-        feature = self.feature_util.get_feature(picture_path)
+        feature = self.feature_util.get_feature(picture_path, model, TestTransform(self.input_w, self.input_h))
         pred_label, min_distance = self.evaluate_single_file(feature, feature_map)
         return pred_label, min_distance
 
@@ -281,11 +315,12 @@ if __name__ == '__main__':
     """
         Example of evaluate a model
     """
-    tester = Tester(model_path = '/home/ubuntu/Program/Dish_recognition/program/model/chawdoe-hardsample-o-o-run-1-augmentation/a_o_o_8/121_' \
-	                  'resnet_metric_conv0.05.tar',
-                    test_dir = '/home/ubuntu/Program/Tableware/DataArgumentation/dataset/n_test/',
-                    sample_file_dir = '/home/ubuntu/Program/Tableware/DataArgumentation/dataset/n_base_sample_5',
-                    prefix='augmentation_o_o',
+    model, _ = load_model('/home/ubuntu/Program/xhq/TablewareFinetunePro-V3/model/model_fine-tuned.tar')
+    tester = Tester(model_path = None,
+                    model=model,
+                    test_dir = '/home/ubuntu/Program/xhq/TablewareFinetunePro-V3/test_set',
+                    sample_file_dir = '/home/ubuntu/Program/xhq/TablewareFinetunePro-V3/base_sample',
+                    prefix='tableware',
                     input_w=300,
                     input_h=300)
     acc = tester.evaluate_with_models()

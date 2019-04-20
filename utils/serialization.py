@@ -65,10 +65,7 @@ def mkdir_if_missing(dir_path):
             raise
 
 
-def save_checkpoint(state, is_best, save_dir, acc,
-                filename='checkpoint.pth.tar',
-                method='',
-                prefix=''):
+def save_checkpoint(state, is_best, save_dir, acc, filename='checkpoint.pth.tar'):
     fpath = '_'.join((str(state['epoch']), filename))
     fpath = osp.join(save_dir, fpath)
     mkdir_if_missing(save_dir)

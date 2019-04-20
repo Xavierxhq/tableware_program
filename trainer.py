@@ -9,7 +9,7 @@ from tester import Tester
 from datasets.prepare_dataset import get_training_set_list
 from trainers.metric_trainer import train_using_metriclearning
 from trainers.train_util import statistic_manager, load_model, log, freeze_model, load_inception3
-from data_analyzer import DataAnalyzer
+from analyzer import Analyzer
 from utils.file_util import pickle_write
 
 
@@ -153,15 +153,14 @@ class Trainer(object):
             os.remove(full_path)
         print('Tmp models have been deleted.')
 
-    def metric_training(self, balance_testset):
+    def train(self, balance_testset):
         """
             Training using hard sample + sample re-weighting(proposed by keke)
         """
         self._train_prepare()
 
-        analyzer = DataAnalyzer(sample_file_dir=self.sample_file_dir,
+        analyzer = Analyzer(sample_file_dir=self.sample_file_dir,
                                 test_dir=self.train_root,
-                                num_of_classes=self.num_train_pids,
                                 prefix=self.prefix,
                                 WIDTH=self.w,
                                 HEIGHT=self.h)
@@ -203,8 +202,6 @@ class Trainer(object):
                                     epoch,
                                     self.train_root,
                                     train_pictures=train_pictures,
-                                    WIDTH=self.w,
-                                    HEIGHT=self.h,
                                     batch_size=self.batch_size,
                                     distance_dict=distance_dict,
                                     class_to_nearest_class=class_to_nearest_class)
@@ -216,12 +213,12 @@ class Trainer(object):
             if epoch % 5 == 0 or epoch == 2:
                 overlap_dict[epoch] = overlap_rate_dict_ls
             # true testing on seen classes
-            acc = self.tester.evaluate_with_models(seen='seen', balance_testset=balance_testset)
+            acc = self.tester.evaluate_with_models(seen='seen')
             print('Margin: {}, Epoch: {}, Acc: {:.3}%, Top overlap rate: {:.4} (on seen pictures)[Hard Sample + Sample Re-weighting]'.format(self.margin, epoch, acc * 100, overlap_rate_dict_ls[0][1]))
 
             if self.test_unseen_root is not None:
                 # true testing on unseen classes
-                acc_unseen = self.tester.evaluate_with_models(seen='unseen', balance_testset=balance_testset)
+                acc_unseen = self.tester.evaluate_with_models(seen='unseen')
                 max_acc_unseen = max(max_acc_unseen, acc_unseen)
                 note = 'update:%.2f, on unseen%s' % (self.update_conv_layers, ' - New Unseen Accuracy' if max_acc_unseen==acc_unseen else '')
                 log(log_path=os.path.join(self.save_dir, 'readme.txt'),
@@ -272,9 +269,7 @@ class Trainer(object):
                 is_best=acc == max_acc,
                 save_dir=self.save_dir,
                 filename=save_model_name,
-                acc=acc,
-                method='metric',
-                prefix=self.prefix.split('/')[0])
+                acc=acc,)
 
             # if the accuracy keep dropping, stop training
             if (drop_count == 12 or fail_max_count == 24) and self.enable_stop_machanism:
