@@ -4,8 +4,7 @@ from torch.utils.data import DataLoader
 from utils.meters import AverageMeter
 from utils.feature_util import FeatureUtil
 from utils.transforms import TrainTransform
-import cv_global as G
-from datasets.data_loader import ImageDataset, dataloader_collate_fn
+from datasets.data_loader import ImageDataset
 
 
 def train_using_metriclearning(model, optimizer, criterion, epoch, train_root, train_pictures,
@@ -21,21 +20,17 @@ def train_using_metriclearning(model, optimizer, criterion, epoch, train_root, t
     if train_pictures is None:
         train_pictures = os.listdir(train_root)
 
-    # set global variables for dataloader usage
-    G.set_value('train_root', train_root)
-    G.set_value('train_pictures', train_pictures)
-    G.set_value('distance_dict', distance_dict)
-    G.set_value('class_to_nearest_class', class_to_nearest_class)
-
-    dataset = ImageDataset([os.path.join(train_root, x) for x in train_pictures],
-                           transform=TrainTransform(G.WIDTH, G.HEIGHT))
-    train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=2, pin_memory=True, collate_fn=dataloader_collate_fn)
+    dataset = ImageDataset([os.path.join(self.train_root, x) for x in train_pictures],
+                               transform=TrainTransform(self.w, self.h),
+                               distance_dict=distance_dict,
+                               class_to_nearest_class=class_to_nearest_class)
+    train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=2, pin_memory=True)
 
     i = 1
     for anchor_ls, positive_ls, negative_ls in train_loader:
-        anchor_ls = model(anchor_ls.cuda())
-        positive_ls = model(positive_ls.cuda())
-        negative_ls = model(negative_ls.cuda())
+        anchor_ls = self.model(torch.Tensor(anchor_ls).cuda())
+        positive_ls = self.model(torch.Tensor(positive_ls).cuda())
+        negative_ls = self.model(torch.Tensor(negative_ls).cuda())
 
         loss = criterion(anchor_ls, positive_ls, negative_ls)
         optimizer.zero_grad()

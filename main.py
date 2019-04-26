@@ -3,12 +3,10 @@ import torch
 # from data_analyzer import DataAnalyzer
 from trainer import Trainer
 from utils.email_util import Emailer
-import cv_global as G
 
 
 if __name__ == "__main__":
 
-    G._init()
     """
         Set Hyper-Parameters for training
     """

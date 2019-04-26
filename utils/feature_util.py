@@ -18,14 +18,21 @@ class FeatureUtil(object):
 		if not os.path.exists(img_path):
 			return None
 		pic_data = self._read_image(img_path)
-		lst = list()
-		if ls_form:
-			return np.array(transform(pic_data))
-
-		lst.append(np.array(transform(pic_data)))
-		lst = np.array(lst)
-		pic_data = Variable(torch.from_numpy(lst))
+		pic_data = np.array(transform(pic_data))
+		if not ls_form:
+			pic_data = Variable(torch.from_numpy(np.array([pic_data])))
 		return pic_data
+		# if not os.path.exists(img_path):
+		# 	return None
+		# pic_data = self._read_image(img_path)
+		# lst = list()
+		# if ls_form:
+		# 	return np.array(transform(pic_data))
+
+		# lst.append(np.array(transform(pic_data)))
+		# lst = np.array(lst)
+		# pic_data = Variable(torch.from_numpy(lst))
+		# return pic_data
 
 	def get_feature(self, img_path, base_model, transform, use_cuda=True):
 		x = self.get_proper_input(img_path, transform)
@@ -61,11 +68,7 @@ class FeatureUtil(object):
 		print('Time for _calc_avg_feature_map: %.1f s' % (time.time() - t1))
 		return avg_feature_dict
 
-	def write_feature_map(self, label, feature, file_name, feature_map_dir, weight=1.0):
-		# _zero = torch.Tensor([[.0 for i in range(2048)]]).cuda()
-		# _multiplier = torch.Tensor([[weight for i in range(2048)]]).cuda()
-		# _zero = torch.addcmul(_zero, 1, feature, _multiplier)
-
+	def write_feature_map(self, label, feature, file_name, feature_map_dir):
 		if not os.path.exists(feature_map_dir):
 			os.makedirs(feature_map_dir)
 		feature_map_name = os.path.join(feature_map_dir, '%s_features.pkl' % label)
@@ -80,8 +83,6 @@ class FeatureUtil(object):
 		return feature
 
 	def _read_image(self, img_path):
-		"""Keep reading image until succeed.
-			    This can avoid IOError incurred by heavy IO process."""
 		got_img = False
 		while not got_img:
 			try:
